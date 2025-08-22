@@ -16,22 +16,6 @@ This repository's primary artifact is the `mednet.yaml` file, which is an [OpenA
 *   **Generate Client SDKs:** Use code generation tools like [OpenAPI Generator](https://openapi-generator.tech/) to automatically create client libraries for various programming languages (e.g., Python, Java, JavaScript, etc.). This significantly speeds up development time by providing pre-built methods for interacting with the API.
 *   **Automate Testing:** The specification can be used to generate test cases and automate API testing, ensuring that integrations are robust and reliable.
 
-### API Endpoints Overview
-
-The API is organized around several key resources in the iMednet EDC system. The available endpoints allow you to manage:
-
-*   **Studies:** List all studies accessible by your API key.
-*   **Sites:** List the clinical sites associated with a study.
-*   **Subjects:** List and manage subjects enrolled in a study.
-*   **Forms & Records:** List form definitions and create or update subject records (eCRFs).
-*   **Visits & Intervals:** List visit definitions and subject visit instances.
-*   **Audit Trails:** Retrieve record revisions (audit trail entries).
-*   **Queries:** List data queries.
-*   **Users & Roles:** List users and their roles within a study.
-*   **And more...**
-
-For a complete list of endpoints and their detailed descriptions, please refer to the `mednet.yaml` file.
-
 ### Authentication
 
 The iMednet EDC API uses a combination of two API keys for authentication, which must be included in the headers of every request:
@@ -41,12 +25,105 @@ The iMednet EDC API uses a combination of two API keys for authentication, which
 
 You must obtain these keys from iMednet to use the API.
 
+Here is an example of how to make a request using `curl`:
+
+```bash
+curl -X GET https://edc.prod.imednetapi.com/api/v1/edc/studies/STUDYKEY/sites \
+  -H 'x-api-key: YOUR_API_KEY' \
+  -H 'x-imn-security-key: YOUR_SECURITY_KEY' \
+  -H 'Content-Type: application/json'
+```
+
+### API Resources
+
+The API is organized around several key resources in the iMednet EDC system. The available endpoints allow you to manage:
+
+*   **Studies:** List all studies accessible by your API key.
+*   **Sites:** List the clinical sites associated with a study.
+*   **Subjects:** List and manage subjects enrolled in a study.
+*   **Forms:** List form definitions.
+*   **Records:** Create or update subject records (eCRFs).
+*   **Visits:** List subject visit instances.
+*   **Intervals:** List visit definitions.
+*   **RecordRevisions:** Retrieve record revisions (audit trail entries).
+*   **Queries:** List data queries.
+*   **Users:** List users and their roles within a study.
+*   **Variables:** List variables (fields) in a study.
+*   **Codings:** List coding activities in a study.
+*   **Jobs:** Retrieve the status of asynchronous jobs.
+
+For a complete list of endpoints and their detailed descriptions, please refer to the `mednet.yaml` file or use a tool like Swagger UI to explore the API interactively.
+
+### Filtering
+
+The iMednet REST API allows you to filter results by providing optional filtering criteria in the `filter` query parameter.
+
+**Operators**
+
+The following operators are supported:
+
+| Operator | Description        |
+|----------|--------------------|
+| `<`      | Less than          |
+| `<=`     | Less than or equal |
+| `>`      | Greater than       |
+| `>=`     | Greater than or equal|
+| `==`     | Equal              |
+| `!=`     | Not equal          |
+
+**Connectors**
+
+You can combine multiple filter criteria using connectors:
+
+| Connector | Description   |
+|-----------|---------------|
+| `;`       | AND condition |
+| `,`       | OR condition  |
+
+**Examples**
+
+*   Return all forms with a Form ID greater than 10:
+    `filter=formId>10`
+*   Return all subject-related Forms:
+    `filter=formType=="SUBJECT"`
+*   Return all subject-related Forms with a Form ID greater than 10:
+    `filter=formId>10;formType=="SUBJECT"`
+
+**Filtering on Record Data**
+
+To filter on the dynamic `recordData` attribute, use the `recordDataFilter` parameter. This parameter supports the same operators as `filter`, plus the `~=` (contains) operator.
+
 ### Versioning
 
 There are two version numbers to be aware of:
 
 1.  **API Version:** This specification documents version **1.3.6** of the iMednet EDC API's functionality.
 2.  **Specification Version:** The OpenAPI specification document itself (`mednet.yaml`) is version **1.0.14**. This version will be incremented as the specification is updated to reflect new changes in the API.
+
+## Postman Collection
+
+This repository includes a [Postman collection](postman_collection.json) that you can import to start making requests to the API right away.
+
+To import the collection into Postman:
+1.  Click the "Import" button in Postman.
+2.  Select the `postman_collection.json` file from this repository.
+3.  The collection will be imported and you can start exploring the API endpoints.
+
+## Linting
+
+This repository includes a configuration for the [Spectral linter](https://github.com/stoplightio/spectral) to ensure the OpenAPI specification follows best practices.
+
+To run the linter, you need to have Node.js and npm installed. Then, install Spectral:
+
+```bash
+npm install -g @stoplight/spectral-cli
+```
+
+Once installed, you can run the linter from the root of the repository:
+
+```bash
+spectral lint mednet.yaml
+```
 
 ## Current Project State
 
