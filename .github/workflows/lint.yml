@@ -1,0 +1,26 @@
+name: Lint OpenAPI Specification
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: Install Spectral CLI
+      run: npm install -g @stoplight/spectral-cli
+
+    - name: Run Spectral linter
+      run: spectral lint mednet.yaml
