@@ -2,139 +2,83 @@
 
 This repository contains the OpenAPI 3.1.0 specification for the iMednet Electronic Data Capture (EDC) REST API. This specification provides a detailed, machine-readable definition of the iMednet API, allowing developers to easily understand and interact with its resources.
 
-## About iMednet and the EDC API
+## Key Features
 
-**iMednet** is a comprehensive platform for managing clinical trial data. The **Electronic Data Capture (EDC)** system is a core component of this platform, used for collecting, cleaning, and managing data from clinical studies.
+- **Comprehensive API Definition:** A detailed and machine-readable OpenAPI 3.1.0 specification.
+- **Interactive Documentation:** Explore the API with tools like Swagger UI or ReDoc.
+- **Client SDK Generation:** Automatically generate client libraries for various programming languages.
+- **Automated Testing:** Use the specification to generate test cases and automate API testing.
 
-The **Mednet EDC REST API** provides a programmatic, single-point of access for reading and writing data stored across iMednet data services. It is designed for integrating external applications, automating workflows, and building custom data analysis pipelines.
+## Technology Stack
 
-## How This Specification Works
+- **OpenAPI 3.1.0:** The specification language for defining the API.
+- **Spectral:** A linter to ensure the OpenAPI specification follows best practices.
+- **Prettier:** A code formatter to ensure consistent formatting.
+- **Node.js:** Used for running the linter, formatter, and other development scripts.
 
-This repository's primary artifact is the `mednet.yaml` file, which is an [OpenAPI Specification](https://swagger.io/specification/). This file allows you to:
+## Getting Started
 
-*   **Explore the API:** Use tools like [Swagger UI](https://swagger.io/tools/swagger-ui/) or [ReDoc](https://github.com/Redocly/redoc) to generate interactive, human-readable documentation from the `mednet.yaml` file. This is a great way to visualize the available endpoints, their parameters, and their responses.
-*   **Generate Client SDKs:** Use code generation tools like [OpenAPI Generator](https://openapi-generator.tech/) to automatically create client libraries for various programming languages (e.g., Python, Java, JavaScript, etc.). This significantly speeds up development time by providing pre-built methods for interacting with the API.
-*   **Automate Testing:** The specification can be used to generate test cases and automate API testing, ensuring that integrations are robust and reliable.
+### Prerequisites
 
-### Authentication
+- [Node.js](https://nodejs.org/) (v14 or later)
+- [npm](https://www.npmjs.com/)
 
-The iMednet EDC API uses a combination of two API keys for authentication, which must be included in the headers of every request:
+### Installation
 
-*   `x-api-key`: Your primary API key.
-*   `x-imn-security-key`: Your security key (secret).
+1.  **Clone the repository:**
 
-You must obtain these keys from iMednet to use the API.
+    ```bash
+    git clone https://github.com/fderuiter/imednet-openapi-spec.git
+    cd imednet-openapi-spec
+    ```
 
-Here is an example of how to make a request using `curl`:
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
 
-```bash
-curl -X GET https://edc.prod.imednetapi.com/api/v1/edc/studies/STUDYKEY/sites \
-  -H 'x-api-key: YOUR_API_KEY' \
-  -H 'x-imn-security-key: YOUR_SECURITY_KEY' \
-  -H 'Content-Type: application/json'
-```
+### Usage
 
-### API Resources
+#### Validate the API Specification
 
-The API is organized around several key resources in the iMednet EDC system. The available endpoints allow you to manage:
-
-*   **Studies:** List all studies accessible by your API key.
-*   **Sites:** List the clinical sites associated with a study.
-*   **Subjects:** List and manage subjects enrolled in a study.
-*   **Forms:** List form definitions.
-*   **Records:** Create or update subject records (eCRFs).
-*   **Visits:** List subject visit instances.
-*   **Intervals:** List visit definitions.
-*   **RecordRevisions:** Retrieve record revisions (audit trail entries).
-*   **Queries:** List data queries.
-*   **Users:** List users and their roles within a study.
-*   **Variables:** List variables (fields) in a study.
-*   **Codings:** List coding activities in a study.
-*   **Jobs:** Retrieve the status of asynchronous jobs.
-
-For a complete list of endpoints and their detailed descriptions, please refer to the `mednet.yaml` file or use a tool like Swagger UI to explore the API interactively.
-
-### Filtering
-
-The iMednet REST API allows you to filter results by providing optional filtering criteria in the `filter` query parameter.
-
-**Operators**
-
-The following operators are supported:
-
-| Operator | Description        |
-|----------|--------------------|
-| `<`      | Less than          |
-| `<=`     | Less than or equal |
-| `>`      | Greater than       |
-| `>=`     | Greater than or equal|
-| `==`     | Equal              |
-| `!=`     | Not equal          |
-
-**Connectors**
-
-You can combine multiple filter criteria using connectors:
-
-| Connector | Description   |
-|-----------|---------------|
-| `;`       | AND condition |
-| `,`       | OR condition  |
-
-**Examples**
-
-*   Return all forms with a Form ID greater than 10:
-    `filter=formId>10`
-*   Return all subject-related Forms:
-    `filter=formType=="SUBJECT"`
-*   Return all subject-related Forms with a Form ID greater than 10:
-    `filter=formId>10;formType=="SUBJECT"`
-
-**Filtering on Record Data**
-
-To filter on the dynamic `recordData` attribute, use the `recordDataFilter` parameter. This parameter supports the same operators as `filter`, plus the `~=` (contains) operator.
-
-### Versioning
-
-There are two version numbers to be aware of:
-
-1.  **API Version:** This specification documents version **1.3.6** of the iMednet EDC API's functionality.
-2.  **Specification Version:** The OpenAPI specification document itself (`mednet.yaml`) is version **1.0.14**. This version will be incremented as the specification is updated to reflect new changes in the API.
-
-## Postman Collection
-
-This repository includes a [Postman collection](postman_collection.json) that you can import to start making requests to the API right away.
-
-To import the collection into Postman:
-1.  Click the "Import" button in Postman.
-2.  Select the `postman_collection.json` file from this repository.
-3.  The collection will be imported and you can start exploring the API endpoints.
-
-## Linting
-
-This repository includes a configuration for the [Spectral linter](https://github.com/stoplightio/spectral) to ensure the OpenAPI specification follows best practices.
-
-To run the linter, you need to have Node.js and npm installed. Then, install Spectral:
+To validate the API specification, run the following command:
 
 ```bash
-npm install -g @stoplight/spectral-cli
+npm run lint
 ```
 
-Once installed, you can run the linter from the root of the repository:
+This will run the Spectral linter to check the `src/mednet.yaml` file for any errors or warnings.
+
+#### Format the Code
+
+To format the code, run the following command:
 
 ```bash
-spectral lint mednet.yaml
+npm run format
 ```
 
-## Current Project State
+This will run Prettier to format all the files in the repository.
 
-This OpenAPI specification is up-to-date and reflects the functionality available in version 1.3.6 of the iMednet EDC API. It is considered stable and can be used for building production-ready integrations.
+#### Explore the API with Swagger UI
 
-## Usage Example
+To explore the API with Swagger UI, you can use a local HTTP server to serve the `src/mednet.yaml` file.
 
-To get started with a tool like Swagger UI, you can use a local HTTP server to serve the `mednet.yaml` file. For example, using Python:
+1.  **Start a local HTTP server:**
 
-```bash
-python -m http.server 8000
-```
+    ```bash
+    python -m http.server 8000
+    ```
 
-You can then open Swagger UI (for example, using a [public Docker image](https://hub.docker.com/r/swaggerapi/swagger-ui/)) and point it to `http://localhost:8000/mednet.yaml` to view the interactive API documentation.
+2.  **Open Swagger UI:**
+    Open your web browser and navigate to a public Swagger UI instance (e.g., [https://petstore.swagger.io/](https://petstore.swagger.io/)).
+
+3.  **Load the API specification:**
+    In the "Explore" bar, enter the URL to your local `mednet.yaml` file: `http://localhost:8000/src/mednet.yaml`.
+
+## Contributing
+
+We welcome contributions to improve the iMednet EDC API OpenAPI Specification. Please see our [CONTRIBUTING.md](CONTRIBUTING.md) file for detailed guidelines on how to contribute.
+
+## License
+
+This project is licensed under the ISC License. See the [LICENSE](LICENSE) file for details.
