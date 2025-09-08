@@ -1,7 +1,8 @@
 openapi: 3.1.0
 info:
   title: Mednet EDC API
-  description: 'The Mednet EDC (Electronic Data Capture) REST API provides a single-point
+  description:
+    'The Mednet EDC (Electronic Data Capture) REST API provides a single-point
     of access for reading data stored across iMednet data services.
 
     This specification documents all available endpoints in the latest version of
@@ -9,22 +10,55 @@ info:
 
     '
   version: 1.0.14
+  contact:
+    name: Mednet
+    url: https://www.mednetsolutions.com/
 servers:
-- url: https://edc.prod.imednetapi.com/api/v1/edc
-  description: Production EDC API server
+  - url: https://edc.prod.imednetapi.com/api/v1/edc
+    description: Production EDC API server
+tags:
+  - name: Studies
+    description: Endpoints related to studies.
+  - name: Sites
+    description: Endpoints related to sites.
+  - name: Users
+    description: Endpoints related to users.
+  - name: Subjects
+    description: Endpoints related to subjects.
+  - name: Forms
+    description: Endpoints related to forms.
+  - name: Intervals
+    description: Endpoints related to intervals.
+  - name: Visits
+    description: Endpoints related to visits.
+  - name: Variables
+    description: Endpoints related to variables.
+  - name: Queries
+    description: Endpoints related to queries.
+  - name: Record Revisions
+    description: Endpoints related to record revisions.
+  - name: Records
+    description: Endpoints related to records.
+  - name: Jobs
+    description: Endpoints related to jobs.
+  - name: Codings
+    description: Endpoints related to codings.
 paths:
   /studies:
     get:
       summary: List studies accessible by API key
       operationId: listStudies
+      description: Returns a list of all studies accessible by the provided API key.
+      tags:
+        - Studies
       security:
-      - apiKeyAuth: []
-        securityKeyAuth: []
+        - apiKeyAuth: []
+          securityKeyAuth: []
       parameters:
-      - $ref: '#/components/parameters/PageParam'
-      - $ref: '#/components/parameters/SizeParam'
-      - $ref: '#/components/parameters/SortParam'
-      - $ref: '#/components/parameters/FilterParam'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/SizeParam'
+        - $ref: '#/components/parameters/SortParam'
+        - $ref: '#/components/parameters/FilterParam'
       responses:
         '200':
           description: Successful response with list of studies
@@ -59,15 +93,18 @@ paths:
     get:
       summary: List sites for a study
       operationId: listSites
+      description: Returns a list of all sites for a given study.
+      tags:
+        - Sites
       security:
-      - apiKeyAuth: []
-        securityKeyAuth: []
+        - apiKeyAuth: []
+          securityKeyAuth: []
       parameters:
-      - $ref: '#/components/parameters/StudyKeyPath'
-      - $ref: '#/components/parameters/PageParam'
-      - $ref: '#/components/parameters/SizeParam'
-      - $ref: '#/components/parameters/SortParam'
-      - $ref: '#/components/parameters/FilterParam'
+        - $ref: '#/components/parameters/StudyKeyPath'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/SizeParam'
+        - $ref: '#/components/parameters/SortParam'
+        - $ref: '#/components/parameters/FilterParam'
       responses:
         '200':
           description: Successful response with list of sites
@@ -102,15 +139,18 @@ paths:
     get:
       summary: List forms in a study
       operationId: listForms
+      description: Returns a list of all forms in a given study.
+      tags:
+        - Forms
       security:
-      - apiKeyAuth: []
-        securityKeyAuth: []
+        - apiKeyAuth: []
+          securityKeyAuth: []
       parameters:
-      - $ref: '#/components/parameters/StudyKeyPath'
-      - $ref: '#/components/parameters/PageParam'
-      - $ref: '#/components/parameters/SizeParam'
-      - $ref: '#/components/parameters/SortParam'
-      - $ref: '#/components/parameters/FilterParam'
+        - $ref: '#/components/parameters/StudyKeyPath'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/SizeParam'
+        - $ref: '#/components/parameters/SortParam'
+        - $ref: '#/components/parameters/FilterParam'
       responses:
         '200':
           description: Successful response with list of forms
@@ -145,15 +185,18 @@ paths:
     get:
       summary: List intervals (visit definitions) in a study
       operationId: listIntervals
+      description: Returns a list of all intervals (visit definitions) in a given study.
+      tags:
+        - Intervals
       security:
-      - apiKeyAuth: []
-        securityKeyAuth: []
+        - apiKeyAuth: []
+          securityKeyAuth: []
       parameters:
-      - $ref: '#/components/parameters/StudyKeyPath'
-      - $ref: '#/components/parameters/PageParam'
-      - $ref: '#/components/parameters/SizeParam'
-      - $ref: '#/components/parameters/SortParam'
-      - $ref: '#/components/parameters/FilterParam'
+        - $ref: '#/components/parameters/StudyKeyPath'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/SizeParam'
+        - $ref: '#/components/parameters/SortParam'
+        - $ref: '#/components/parameters/FilterParam'
       responses:
         '200':
           description: Successful response with list of intervals
@@ -188,15 +231,18 @@ paths:
     get:
       summary: List visits (subject visit instances) in a study
       operationId: listVisits
+      description: Returns a list of all visits (subject visit instances) in a given study.
+      tags:
+        - Visits
       security:
-      - apiKeyAuth: []
-        securityKeyAuth: []
+        - apiKeyAuth: []
+          securityKeyAuth: []
       parameters:
-      - $ref: '#/components/parameters/StudyKeyPath'
-      - $ref: '#/components/parameters/PageParam'
-      - $ref: '#/components/parameters/SizeParam'
-      - $ref: '#/components/parameters/SortParam'
-      - $ref: '#/components/parameters/FilterParam'
+        - $ref: '#/components/parameters/StudyKeyPath'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/SizeParam'
+        - $ref: '#/components/parameters/SortParam'
+        - $ref: '#/components/parameters/FilterParam'
       responses:
         '200':
           description: Successful response with list of visits
@@ -231,15 +277,18 @@ paths:
     get:
       summary: List subjects in a study
       operationId: listSubjects
+      description: Returns a list of all subjects in a given study.
+      tags:
+        - Subjects
       security:
-      - apiKeyAuth: []
-        securityKeyAuth: []
+        - apiKeyAuth: []
+          securityKeyAuth: []
       parameters:
-      - $ref: '#/components/parameters/StudyKeyPath'
-      - $ref: '#/components/parameters/PageParam'
-      - $ref: '#/components/parameters/SizeParam'
-      - $ref: '#/components/parameters/SortParam'
-      - $ref: '#/components/parameters/FilterParam'
+        - $ref: '#/components/parameters/StudyKeyPath'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/SizeParam'
+        - $ref: '#/components/parameters/SortParam'
+        - $ref: '#/components/parameters/FilterParam'
       responses:
         '200':
           description: Successful response with list of subjects
@@ -274,15 +323,18 @@ paths:
     get:
       summary: List users and their roles in a study
       operationId: listUsers
+      description: Returns a list of all users and their roles in a given study.
+      tags:
+        - Users
       security:
-      - apiKeyAuth: []
-        securityKeyAuth: []
+        - apiKeyAuth: []
+          securityKeyAuth: []
       parameters:
-      - $ref: '#/components/parameters/StudyKeyPath'
-      - $ref: '#/components/parameters/PageParam'
-      - $ref: '#/components/parameters/SizeParam'
-      - $ref: '#/components/parameters/SortParam'
-      - $ref: '#/components/parameters/IncludeInactiveParam'
+        - $ref: '#/components/parameters/StudyKeyPath'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/SizeParam'
+        - $ref: '#/components/parameters/SortParam'
+        - $ref: '#/components/parameters/IncludeInactiveParam'
       responses:
         '200':
           description: Successful response with list of users
@@ -317,15 +369,18 @@ paths:
     get:
       summary: List variables (fields) in a study
       operationId: listVariables
+      description: Returns a list of all variables (fields) in a given study.
+      tags:
+        - Variables
       security:
-      - apiKeyAuth: []
-        securityKeyAuth: []
+        - apiKeyAuth: []
+          securityKeyAuth: []
       parameters:
-      - $ref: '#/components/parameters/StudyKeyPath'
-      - $ref: '#/components/parameters/PageParam'
-      - $ref: '#/components/parameters/SizeParam'
-      - $ref: '#/components/parameters/SortParam'
-      - $ref: '#/components/parameters/FilterParam'
+        - $ref: '#/components/parameters/StudyKeyPath'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/SizeParam'
+        - $ref: '#/components/parameters/SortParam'
+        - $ref: '#/components/parameters/FilterParam'
       responses:
         '200':
           description: Successful response with list of variables
@@ -360,15 +415,18 @@ paths:
     get:
       summary: List coding activities in a study
       operationId: listCodings
+      description: Returns a list of all coding activities in a given study.
+      tags:
+        - Codings
       security:
-      - apiKeyAuth: []
-        securityKeyAuth: []
+        - apiKeyAuth: []
+          securityKeyAuth: []
       parameters:
-      - $ref: '#/components/parameters/StudyKeyPath'
-      - $ref: '#/components/parameters/PageParam'
-      - $ref: '#/components/parameters/SizeParam'
-      - $ref: '#/components/parameters/SortParam'
-      - $ref: '#/components/parameters/FilterParam'
+        - $ref: '#/components/parameters/StudyKeyPath'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/SizeParam'
+        - $ref: '#/components/parameters/SortParam'
+        - $ref: '#/components/parameters/FilterParam'
       responses:
         '200':
           description: Successful response with list of coding entries
@@ -403,15 +461,18 @@ paths:
     get:
       summary: List data queries in a study
       operationId: listQueries
+      description: Returns a list of all data queries in a given study.
+      tags:
+        - Queries
       security:
-      - apiKeyAuth: []
-        securityKeyAuth: []
+        - apiKeyAuth: []
+          securityKeyAuth: []
       parameters:
-      - $ref: '#/components/parameters/StudyKeyPath'
-      - $ref: '#/components/parameters/PageParam'
-      - $ref: '#/components/parameters/SizeParam'
-      - $ref: '#/components/parameters/SortParam'
-      - $ref: '#/components/parameters/FilterParam'
+        - $ref: '#/components/parameters/StudyKeyPath'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/SizeParam'
+        - $ref: '#/components/parameters/SortParam'
+        - $ref: '#/components/parameters/FilterParam'
       responses:
         '200':
           description: Successful response with list of queries
@@ -446,15 +507,18 @@ paths:
     get:
       summary: List record revisions (audit trail entries) in a study
       operationId: listRecordRevisions
+      description: Returns a list of all record revisions (audit trail entries) in a given study.
+      tags:
+        - Record Revisions
       security:
-      - apiKeyAuth: []
-        securityKeyAuth: []
+        - apiKeyAuth: []
+          securityKeyAuth: []
       parameters:
-      - $ref: '#/components/parameters/StudyKeyPath'
-      - $ref: '#/components/parameters/PageParam'
-      - $ref: '#/components/parameters/SizeParam'
-      - $ref: '#/components/parameters/SortParam'
-      - $ref: '#/components/parameters/FilterParam'
+        - $ref: '#/components/parameters/StudyKeyPath'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/SizeParam'
+        - $ref: '#/components/parameters/SortParam'
+        - $ref: '#/components/parameters/FilterParam'
       responses:
         '200':
           description: Successful response with list of record revisions
@@ -489,16 +553,19 @@ paths:
     get:
       summary: List records (eCRF instances) in a study
       operationId: listRecords
+      description: Returns a list of all records (eCRF instances) in a given study.
+      tags:
+        - Records
       security:
-      - apiKeyAuth: []
-        securityKeyAuth: []
+        - apiKeyAuth: []
+          securityKeyAuth: []
       parameters:
-      - $ref: '#/components/parameters/StudyKeyPath'
-      - $ref: '#/components/parameters/PageParam'
-      - $ref: '#/components/parameters/SizeParam'
-      - $ref: '#/components/parameters/SortParam'
-      - $ref: '#/components/parameters/FilterParam'
-      - $ref: '#/components/parameters/RecordDataFilterParam'
+        - $ref: '#/components/parameters/StudyKeyPath'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/SizeParam'
+        - $ref: '#/components/parameters/SortParam'
+        - $ref: '#/components/parameters/FilterParam'
+        - $ref: '#/components/parameters/RecordDataFilterParam'
       responses:
         '200':
           description: Successful response with list of records
@@ -532,13 +599,17 @@ paths:
     post:
       summary: Add new record or update subject/record data
       operationId: createRecords
+      description: Adds or updates records in the iMednet database. The request body determines the action (register a subject, update a scheduled record, or create a new record).
+      tags:
+        - Records
       security:
-      - apiKeyAuth: []
-        securityKeyAuth: []
+        - apiKeyAuth: []
+          securityKeyAuth: []
       parameters:
-      - $ref: '#/components/parameters/StudyKeyPath'
+        - $ref: '#/components/parameters/StudyKeyPath'
       requestBody:
-        description: An array of record objects defining the operation to perform
+        description:
+          An array of record objects defining the operation to perform
           (subject registration, record creation, or scheduled record update).
         required: true
         content:
@@ -554,7 +625,8 @@ paths:
                 $ref: '#/components/examples/ExampleCreateNewRecordRequest'
       responses:
         '202':
-          description: Accepted request for record creation. Returns a job identifier
+          description:
+            Accepted request for record creation. Returns a job identifier
             to check status.
           content:
             application/json:
@@ -583,12 +655,15 @@ paths:
     get:
       summary: Retrieve job status by batch ID
       operationId: getJobStatus
+      description: Retrieves the status of a job by its batch ID.
+      tags:
+        - Jobs
       security:
-      - apiKeyAuth: []
-        securityKeyAuth: []
+        - apiKeyAuth: []
+          securityKeyAuth: []
       parameters:
-      - $ref: '#/components/parameters/StudyKeyPath'
-      - $ref: '#/components/parameters/BatchIdPath'
+        - $ref: '#/components/parameters/StudyKeyPath'
+        - $ref: '#/components/parameters/BatchIdPath'
       responses:
         '200':
           description: Successful response with job status information
@@ -758,7 +833,8 @@ components:
           description: Whether the form is included in Other Forms category
         eproForm:
           type: boolean
-          description: Whether the form is an ePRO (electronic patient reported outcome)
+          description:
+            Whether the form is an ePRO (electronic patient reported outcome)
             form
         allowCopy:
           type: boolean
@@ -799,41 +875,49 @@ components:
           description: Name of the interval group
         timeline:
           type: string
-          description: Type of interval visit window (e.g., None, Due Date, Start
+          description:
+            Type of interval visit window (e.g., None, Due Date, Start
             - End Date, Actual Date)
         definedUsingInterval:
           type: string
-          description: "Baseline interval used for calculating this interval\u2019\
+          description:
+            "Baseline interval used for calculating this interval\u2019\
             s dates"
         windowCalculationForm:
           type: string
           description: Baseline form (name) from which the calculation date is taken
         windowCalculationDate:
           type: string
-          description: Baseline field (variable name) from which the calculation date
+          description:
+            Baseline field (variable name) from which the calculation date
             is taken
         actualDateForm:
           type: string
           description: Form used to capture the actual date for this interval
         actualDate:
           type: string
-          description: Field (variable name) used to capture the actual date for this
+          description:
+            Field (variable name) used to capture the actual date for this
             interval
         dueDateWillBeIn:
           type: integer
-          description: Number of days from the calculation date when the interval
+          description:
+            Number of days from the calculation date when the interval
             is due
         negativeSlack:
           type: integer
-          description: Number of days before the due date that are allowed (negative
+          description:
+            Number of days before the due date that are allowed (negative
             window)
         positiveSlack:
           type: integer
-          description: Number of days after the due date that are allowed (positive
+          description:
+            Number of days after the due date that are allowed (positive
             window)
         eproGracePeriod:
           type: integer
-          description: Number of days of grace period for ePRO completion after due
+          description:
+            Number of days of grace period for ePRO completion after due
             date
         forms:
           type: array
@@ -872,7 +956,8 @@ components:
           description: Unique system identifier for the subject visit instance
         intervalId:
           type: integer
-          description: Unique system identifier of the interval definition for this
+          description:
+            Unique system identifier of the interval definition for this
             visit
         intervalName:
           type: string
@@ -1004,7 +1089,8 @@ components:
           type: array
           items:
             type: integer
-          description: Timestamp when the role assignment was created (as [year, month,
+          description:
+            Timestamp when the role assignment was created (as [year, month,
             day, hour, minute, second, nanosecond])
         dateModified:
           type: array
@@ -1053,7 +1139,8 @@ components:
           description: Sequence of the variable on the form
         revision:
           type: integer
-          description: Number of modifications of the variable (via form metadata
+          description:
+            Number of modifications of the variable (via form metadata
             revisions)
         disabled:
           type: boolean
@@ -1084,7 +1171,8 @@ components:
           description: User-defined identifier (field name) for the variable
         blinded:
           type: boolean
-          description: Whether the variable is flagged as blinded (hidden in certain
+          description:
+            Whether the variable is flagged as blinded (hidden in certain
             contexts)
       title: Variable
     Coding:
@@ -1169,7 +1257,8 @@ components:
         type:
           type: string
           nullable: true
-          description: System text identifier for the query type/location (subject,
+          description:
+            System text identifier for the query type/location (subject,
             record, question)
         description:
           type: string
@@ -1240,7 +1329,8 @@ components:
           description: Revision number of the data within the record
         recordStatus:
           type: string
-          description: Status of the record at this revision (user-defined status
+          description:
+            Status of the record at this revision (user-defined status
             label)
         subjectId:
           type: integer
@@ -1284,7 +1374,8 @@ components:
           description: Unique study key
         intervalId:
           type: integer
-          description: Interval ID (visit definition) that this record is associated
+          description:
+            Interval ID (visit definition) that this record is associated
             with
         formId:
           type: integer
@@ -1306,7 +1397,8 @@ components:
           description: Type of record (e.g., SUBJECT for subject-related forms)
         recordStatus:
           type: string
-          description: Current status of the record (e.g., Record Incomplete, Record
+          description:
+            Current status of the record (e.g., Record Incomplete, Record
             Complete)
         deleted:
           type: boolean
@@ -1322,7 +1414,8 @@ components:
           description: Mednet subject ID that this record is associated with
         subjectOid:
           type: string
-          description: Client-assigned subject OID for the subject this record is
+          description:
+            Client-assigned subject OID for the subject this record is
             associated with
         subjectKey:
           type: string
@@ -1332,7 +1425,8 @@ components:
           description: Visit instance ID that this record is associated with (if applicable)
         parentRecordId:
           type: integer
-          description: Record ID of the parent record if this record is a subrecord
+          description:
+            Record ID of the parent record if this record is a subrecord
             (if applicable)
         keywords:
           type: array
@@ -1341,7 +1435,8 @@ components:
             $ref: '#/components/schemas/Keyword'
         recordData:
           type: object
-          description: Data fields and values captured in this record. The structure
+          description:
+            Data fields and values captured in this record. The structure
             is dynamic, with keys corresponding to variable names.
           additionalProperties: true
           title: components_schemas_Record_recordData
@@ -1357,51 +1452,60 @@ components:
             description: Form key identifying the eCRF to create or update
           formId:
             type: integer
-            description: Form ID identifying the eCRF to create or update (alternative
+            description:
+              Form ID identifying the eCRF to create or update (alternative
               to formKey)
           siteName:
             type: string
-            description: Name of the site where the record should be created (for
+            description:
+              Name of the site where the record should be created (for
               new subject registration)
           siteId:
             type: integer
             description: Site ID for the record (alternative to siteName)
           subjectKey:
             type: string
-            description: Subject identifier (display ID) for which to create or update
+            description:
+              Subject identifier (display ID) for which to create or update
               the record
           subjectId:
             type: integer
-            description: Subject ID for which to create or update the record (alternative
+            description:
+              Subject ID for which to create or update the record (alternative
               to subjectKey)
           subjectOid:
             type: string
-            description: Subject OID for which to create or update the record (alternative
+            description:
+              Subject OID for which to create or update the record (alternative
               to subjectKey)
           intervalName:
             type: string
             description: Name of the interval (visit) for a scheduled record update
           intervalId:
             type: integer
-            description: Interval ID for a scheduled record update (alternative to
+            description:
+              Interval ID for a scheduled record update (alternative to
               intervalName)
           recordId:
             type: integer
-            description: Record ID for updating an existing unscheduled record (if
+            description:
+              Record ID for updating an existing unscheduled record (if
               applicable)
           recordOid:
             type: string
-            description: Record OID for updating an existing unscheduled record (if
+            description:
+              Record OID for updating an existing unscheduled record (if
               applicable)
           data:
             type: object
-            description: Key-value pairs of field names and values for the record
+            description:
+              Key-value pairs of field names and values for the record
               data
             additionalProperties: true
             title: components_schemas_RecordCreateRequest_item_data
         required:
-        - formKey
-        - data
+          - formKey
+          - data
         title: components_schemas_RecordCreateRequest_item
       title: RecordCreateRequest
     RecordJobStatus:
@@ -1412,7 +1516,8 @@ components:
           description: Unique job identifier
         batchId:
           type: string
-          description: Batch ID used to track the job (identical to jobId in most
+          description:
+            Batch ID used to track the job (identical to jobId in most
             cases)
         state:
           type: string
@@ -1426,7 +1531,8 @@ components:
           description: Unique job identifier
         batchId:
           type: string
-          description: Batch ID associated with the job (useful for linking with record
+          description:
+            Batch ID associated with the job (useful for linking with record
             creation requests)
         state:
           type: string
@@ -1473,14 +1579,16 @@ components:
     SortParam:
       name: sort
       in: query
-      description: Sorting criteria in the format `property,ASC` or `property,DESC`.
+      description:
+        Sorting criteria in the format `property,ASC` or `property,DESC`.
         Can be repeated.
       schema:
         type: string
     FilterParam:
       name: filter
       in: query
-      description: Optional filter criteria to apply, in the format `attribute==value`
+      description:
+        Optional filter criteria to apply, in the format `attribute==value`
         with support for >, >=, <, <=, !=. Multiple criteria can be combined with
         `;` (AND) or `,` (OR).
       schema:
@@ -1488,7 +1596,8 @@ components:
     RecordDataFilterParam:
       name: recordDataFilter
       in: query
-      description: Optional filter criteria to apply on recordData fields (question
+      description:
+        Optional filter criteria to apply on recordData fields (question
         responses). Supports ==, !=, <, <=, >, >=, =~ (contains) and can combine multiple
         criteria with `;` (AND) or `,` (OR).
       schema:
@@ -1500,12 +1609,6 @@ components:
       schema:
         type: boolean
         default: false
-    XEmailNotifyHeader:
-      name: x-email-notify
-      in: header
-      description: Email address to send notification once job is complete (optional)
-      schema:
-        type: string
   securitySchemes:
     apiKeyAuth:
       type: apiKey
@@ -1588,7 +1691,8 @@ components:
               metadata:
                 status: ERROR
                 error:
-                  message: Too many requests - rate limit exceeded, please try again
+                  message:
+                    Too many requests - rate limit exceeded, please try again
                     later or contact support.
     InternalServerError:
       description: Internal server error (unexpected condition encountered)
@@ -1621,18 +1725,19 @@ components:
           totalPages: 1
           totalElements: 1
           sort:
-          - property: studyKey
-            direction: ASC
+            - property: studyKey
+              direction: ASC
         data:
-        - sponsorKey: '100'
-          studyKey: PHARMADEMO
-          studyId: 100
-          studyName: iMednet Pharma Demonstration Study
-          studyDescription: iMednet Demonstration Study v2 Created 05April2018 After
-            A5 Release
-          studyType: STUDY
-          dateCreated: '2025-06-05 21:12:08'
-          dateModified: '2025-06-05 21:12:09'
+          - sponsorKey: '100'
+            studyKey: PHARMADEMO
+            studyId: 100
+            studyName: iMednet Pharma Demonstration Study
+            studyDescription:
+              iMednet Demonstration Study v2 Created 05April2018 After
+              A5 Release
+            studyType: STUDY
+            dateCreated: '2025-06-05 21:12:08'
+            dateModified: '2025-06-05 21:12:09'
     ExampleSitesList:
       summary: Example response for listing sites
       value:
@@ -1648,15 +1753,15 @@ components:
           totalPages: 1
           totalElements: 1
           sort:
-          - property: siteId
-            direction: ASC
+            - property: siteId
+              direction: ASC
         data:
-        - studyKey: PHARMADEMO
-          siteId: 1
-          siteName: Mock Site 1
-          siteEnrollmentStatus: Enrollment Open
-          dateCreated: '2025-06-05 21:12:09'
-          dateModified: '2025-06-05 21:12:10'
+          - studyKey: PHARMADEMO
+            siteId: 1
+            siteName: Mock Site 1
+            siteEnrollmentStatus: Enrollment Open
+            dateCreated: '2025-06-05 21:12:09'
+            dateModified: '2025-06-05 21:12:10'
     ExampleFormsList:
       summary: Example response for listing forms
       value:
@@ -1672,26 +1777,26 @@ components:
           totalPages: 1
           totalElements: 1
           sort:
-          - property: formId
-            direction: ASC
+            - property: formId
+              direction: ASC
         data:
-        - studyKey: PHARMADEMO
-          formId: 1
-          formKey: FORM_1
-          formName: Mock Form 1
-          formType: Subject
-          revision: 1
-          embeddedLog: false
-          enforceOwnership: false
-          userAgreement: false
-          subjectRecordReport: false
-          unscheduledVisit: false
-          otherForms: false
-          eproForm: false
-          allowCopy: true
-          disabled: false
-          dateCreated: '2025-06-05 21:12:09'
-          dateModified: '2025-06-05 21:12:10'
+          - studyKey: PHARMADEMO
+            formId: 1
+            formKey: FORM_1
+            formName: Mock Form 1
+            formType: Subject
+            revision: 1
+            embeddedLog: false
+            enforceOwnership: false
+            userAgreement: false
+            subjectRecordReport: false
+            unscheduledVisit: false
+            otherForms: false
+            eproForm: false
+            allowCopy: true
+            disabled: false
+            dateCreated: '2025-06-05 21:12:09'
+            dateModified: '2025-06-05 21:12:10'
     ExampleIntervalsList:
       summary: Example response for listing intervals
       value:
@@ -1707,33 +1812,33 @@ components:
           totalPages: 1
           totalElements: 1
           sort:
-          - property: intervalId
-            direction: ASC
+            - property: intervalId
+              direction: ASC
         data:
-        - studyKey: PHARMADEMO
-          intervalId: 1
-          intervalName: Day 1
-          intervalDescription: Day 1
-          intervalSequence: 110
-          intervalGroupId: 10
-          intervalGroupName: ePRO
-          disabled: true
-          dateCreated: '2025-06-05 21:12:08'
-          dateModified: '2025-06-05 21:12:09'
-          timeline: Start Date End Date
-          definedUsingInterval: Baseline
-          windowCalculationForm: Procedure
-          windowCalculationDate: PROCDT
-          actualDateForm: Follow Up
-          actualDate: FUDT
-          dueDateWillBeIn: 30
-          negativeSlack: 7
-          positiveSlack: 7
-          eproGracePeriod: 2
-          forms:
-          - formId: 123
-            formKey: MY-FORM-KEY
-            formName: myFormName
+          - studyKey: PHARMADEMO
+            intervalId: 1
+            intervalName: Day 1
+            intervalDescription: Day 1
+            intervalSequence: 110
+            intervalGroupId: 10
+            intervalGroupName: ePRO
+            disabled: true
+            dateCreated: '2025-06-05 21:12:08'
+            dateModified: '2025-06-05 21:12:09'
+            timeline: Start Date End Date
+            definedUsingInterval: Baseline
+            windowCalculationForm: Procedure
+            windowCalculationDate: PROCDT
+            actualDateForm: Follow Up
+            actualDate: FUDT
+            dueDateWillBeIn: 30
+            negativeSlack: 7
+            positiveSlack: 7
+            eproGracePeriod: 2
+            forms:
+              - formId: 123
+                formKey: MY-FORM-KEY
+                formName: myFormName
     ExampleVisitsList:
       summary: Example response for listing visits
       value:
@@ -1749,24 +1854,24 @@ components:
           totalPages: 1
           totalElements: 1
           sort:
-          - property: visitId
-            direction: ASC
+            - property: visitId
+              direction: ASC
         data:
-        - visitId: 1
-          studyKey: PHARMADEMO
-          intervalId: 13
-          intervalName: Day 15
-          subjectId: 247
-          subjectKey: 111-005
-          startDate: '2025-06-05'
-          endDate: '2025-06-12'
-          dueDate: null
-          visitDate: '2025-06-07'
-          visitDateForm: Follow Up
-          deleted: false
-          visitDateQuestion: AESEV
-          dateCreated: '2025-06-05 21:12:08'
-          dateModified: '2025-06-05 21:12:08'
+          - visitId: 1
+            studyKey: PHARMADEMO
+            intervalId: 13
+            intervalName: Day 15
+            subjectId: 247
+            subjectKey: 111-005
+            startDate: '2025-06-05'
+            endDate: '2025-06-12'
+            dueDate: null
+            visitDate: '2025-06-07'
+            visitDateForm: Follow Up
+            deleted: false
+            visitDateQuestion: AESEV
+            dateCreated: '2025-06-05 21:12:08'
+            dateModified: '2025-06-05 21:12:08'
     ExampleSubjectsList:
       summary: Example response for listing subjects
       value:
@@ -1782,25 +1887,25 @@ components:
           totalPages: 1
           totalElements: 1
           sort:
-          - property: subjectId
-            direction: ASC
+            - property: subjectId
+              direction: ASC
         data:
-        - studyKey: PHARMADEMO
-          subjectId: 1
-          subjectOid: OID-1
-          subjectKey: 01-001
-          subjectStatus: Enrolled
-          siteId: 128
-          siteName: Chicago Hope Hospital
-          deleted: false
-          enrollmentStartDate: '2025-06-05 21:12:09'
-          dateCreated: '2025-06-05 21:12:09'
-          dateModified: '2025-06-05 21:12:10'
-          keywords:
-          - keywordName: Data Entry Error
-            keywordKey: DEE
-            keywordId: 15362
-            dateAdded: '2025-06-05 21:12:09'
+          - studyKey: PHARMADEMO
+            subjectId: 1
+            subjectOid: OID-1
+            subjectKey: 01-001
+            subjectStatus: Enrolled
+            siteId: 128
+            siteName: Chicago Hope Hospital
+            deleted: false
+            enrollmentStartDate: '2025-06-05 21:12:09'
+            dateCreated: '2025-06-05 21:12:09'
+            dateModified: '2025-06-05 21:12:10'
+            keywords:
+              - keywordName: Data Entry Error
+                keywordKey: DEE
+                keywordId: 15362
+                dateAdded: '2025-06-05 21:12:09'
     ExampleUsersList:
       summary: Example response for listing users
       value:
@@ -1816,62 +1921,62 @@ components:
           totalPages: 1
           totalElements: 1
           sort:
-          - property: login
-            direction: ASC
+            - property: login
+              direction: ASC
         data:
-        - userId: 685253e1-1a95-4352-a7b0-4c62d3807727
-          login: wsmith1
-          firstName: William
-          lastName: Smith
-          email: wsmith@mednet.com
-          userActiveInStudy: true
-          roles:
-          - dateCreated:
-            - 2025
-            - 6
-            - 5
-            - 21
-            - 12
-            - 7
-            - 625000000
-            dateModified:
-            - 2025
-            - 6
-            - 5
-            - 21
-            - 12
-            - 7
-            - 625000000
-            roleId: 6ec2a32b-143c-43d3-b562-9d902a61f884
-            communityId: 1
-            name: Role name 1
-            description: Role description 1
-            level: 1
-            type: Role type 1
-            inactive: false
-          - dateCreated:
-            - 2025
-            - 6
-            - 5
-            - 21
-            - 12
-            - 7
-            - 625000000
-            dateModified:
-            - 2025
-            - 6
-            - 5
-            - 21
-            - 12
-            - 7
-            - 625000000
-            roleId: 6ec2a32b-143c-43d3-b562-9d902a61f884
-            communityId: 2
-            name: Role name 2
-            description: Role description 2
-            level: 2
-            type: Role type 2
-            inactive: false
+          - userId: 685253e1-1a95-4352-a7b0-4c62d3807727
+            login: wsmith1
+            firstName: William
+            lastName: Smith
+            email: wsmith@mednet.com
+            userActiveInStudy: true
+            roles:
+              - dateCreated:
+                  - 2025
+                  - 6
+                  - 5
+                  - 21
+                  - 12
+                  - 7
+                  - 625000000
+                dateModified:
+                  - 2025
+                  - 6
+                  - 5
+                  - 21
+                  - 12
+                  - 7
+                  - 625000000
+                roleId: 6ec2a32b-143c-43d3-b562-9d902a61f884
+                communityId: 1
+                name: Role name 1
+                description: Role description 1
+                level: 1
+                type: Role type 1
+                inactive: false
+              - dateCreated:
+                  - 2025
+                  - 6
+                  - 5
+                  - 21
+                  - 12
+                  - 7
+                  - 625000000
+                dateModified:
+                  - 2025
+                  - 6
+                  - 5
+                  - 21
+                  - 12
+                  - 7
+                  - 625000000
+                roleId: 6ec2a32b-143c-43d3-b562-9d902a61f884
+                communityId: 2
+                name: Role name 2
+                description: Role description 2
+                level: 2
+                type: Role type 2
+                inactive: false
     ExampleVariablesList:
       summary: Example response for listing variables
       value:
@@ -1887,25 +1992,25 @@ components:
           totalPages: 1
           totalElements: 1
           sort:
-          - property: variableId
-            direction: ASC
+            - property: variableId
+              direction: ASC
         data:
-        - studyKey: PHARMADEMO
-          variableId: 1
-          variableType: RADIO
-          variableName: Pain Level
-          sequence: 1
-          revision: 1
-          disabled: false
-          dateCreated: '2025-06-05 21:12:08'
-          dateModified: '2025-06-05 21:12:09'
-          formId: 108727
-          variableOid: OID-1
-          deleted: false
-          formKey: FORM_1
-          formName: Pre-procedure screening
-          label: Select patient pain level between 1 and 10
-          blinded: false
+          - studyKey: PHARMADEMO
+            variableId: 1
+            variableType: RADIO
+            variableName: Pain Level
+            sequence: 1
+            revision: 1
+            disabled: false
+            dateCreated: '2025-06-05 21:12:08'
+            dateModified: '2025-06-05 21:12:09'
+            formId: 108727
+            variableOid: OID-1
+            deleted: false
+            formKey: FORM_1
+            formName: Pre-procedure screening
+            label: Select patient pain level between 1 and 10
+            blinded: false
     ExampleCodingsList:
       summary: Example response for listing codings
       value:
@@ -1921,28 +2026,28 @@ components:
           totalPages: 1
           totalElements: 1
           sort:
-          - property: recordId
-            direction: ASC
+            - property: recordId
+              direction: ASC
         data:
-        - studyKey: PHARMADEMO
-          siteName: Chicago Hope Hospital
-          siteId: 128
-          subjectId: 247
-          subjectKey: 111-005
-          formId: 1
-          formName: Adverse Event
-          formKey: AE
-          revision: 2
-          recordId: 1
-          variable: AETERM
-          value: Angina
-          codingId: 1
-          code: Angina agranulocytic
-          codedBy: John Smith
-          reason: Typo fix
-          dictionaryName: MedDRA
-          dictionaryVersion: '24.0'
-          dateCoded: '2025-06-05 21:12:10'
+          - studyKey: PHARMADEMO
+            siteName: Chicago Hope Hospital
+            siteId: 128
+            subjectId: 247
+            subjectKey: 111-005
+            formId: 1
+            formName: Adverse Event
+            formKey: AE
+            revision: 2
+            recordId: 1
+            variable: AETERM
+            value: Angina
+            codingId: 1
+            code: Angina agranulocytic
+            codedBy: John Smith
+            reason: Typo fix
+            dictionaryName: MedDRA
+            dictionaryVersion: '24.0'
+            dateCoded: '2025-06-05 21:12:10'
     ExampleQueriesList:
       summary: Example response for listing queries
       value:
@@ -1958,28 +2063,28 @@ components:
           totalPages: 1
           totalElements: 1
           sort:
-          - property: annotationId
-            direction: ASC
+            - property: annotationId
+              direction: ASC
         data:
-        - studyKey: PHARMADEMO
-          subjectId: 1
-          subjectOid: OID-1
-          annotationType: subject
-          annotationId: 1
-          type: null
-          description: Monitor Query
-          recordId: 123
-          variable: aeterm
-          subjectKey: 123-005
-          dateCreated: '2025-06-05 21:12:09'
-          dateModified: '2025-06-05 21:12:10'
-          queryComments:
-          - sequence: 1
-            annotationStatus: Monitor Query Open
-            user: john
-            comment: Added comment to study
-            closed: false
-            date: '2025-06-05 21:12:09'
+          - studyKey: PHARMADEMO
+            subjectId: 1
+            subjectOid: OID-1
+            annotationType: subject
+            annotationId: 1
+            type: null
+            description: Monitor Query
+            recordId: 123
+            variable: aeterm
+            subjectKey: 123-005
+            dateCreated: '2025-06-05 21:12:09'
+            dateModified: '2025-06-05 21:12:10'
+            queryComments:
+              - sequence: 1
+                annotationStatus: Monitor Query Open
+                user: john
+                comment: Added comment to study
+                closed: false
+                date: '2025-06-05 21:12:09'
     ExampleRecordRevisionsList:
       summary: Example response for listing record revisions
       value:
@@ -1995,27 +2100,27 @@ components:
           totalPages: 1
           totalElements: 1
           sort:
-          - property: recordRevisionId
-            direction: ASC
+            - property: recordRevisionId
+              direction: ASC
         data:
-        - studyKey: PHARMADEMO
-          recordRevisionId: 1
-          recordId: 1
-          recordOid: REC-1
-          recordRevision: 1
-          dataRevision: 1
-          recordStatus: Record Complete
-          subjectId: 247
-          subjectOid: OID-1
-          subjectKey: 001-003
-          siteId: 2
-          formKey: AE
-          intervalId: 15
-          role: Research Coordinator
-          user: jdoe
-          reasonForChange: Data entry error
-          deleted: true
-          dateCreated: '2025-06-05 21:12:09'
+          - studyKey: PHARMADEMO
+            recordRevisionId: 1
+            recordId: 1
+            recordOid: REC-1
+            recordRevision: 1
+            dataRevision: 1
+            recordStatus: Record Complete
+            subjectId: 247
+            subjectOid: OID-1
+            subjectKey: 001-003
+            siteId: 2
+            formKey: AE
+            intervalId: 15
+            role: Research Coordinator
+            user: jdoe
+            reasonForChange: Data entry error
+            deleted: true
+            dateCreated: '2025-06-05 21:12:09'
     ExampleRecordsList:
       summary: Example response for listing records
       value:
@@ -2031,60 +2136,61 @@ components:
           totalPages: 1
           totalElements: 1
           sort:
-          - property: recordId
-            direction: ASC
+            - property: recordId
+              direction: ASC
         data:
-        - studyKey: PHARMADEMO
-          intervalId: 99
-          formId: 10202
-          formKey: AE
-          siteId: 128
-          recordId: 1
-          recordOid: REC-1
-          recordType: SUBJECT
-          recordStatus: Record Incomplete
-          deleted: false
-          dateCreated: '2025-06-05 21:12:09'
-          dateModified: '2025-06-05 21:12:10'
-          subjectId: 326
-          subjectOid: OID-1
-          subjectKey: 123-456
-          visitId: 1
-          parentRecordId: 34
-          keywords:
-          - keywordName: Data Entry Error
-            keywordKey: DEE
-            keywordId: 15362
-            dateAdded: '2025-06-05 21:12:09'
-          recordData:
-            dateCreated: '2018-10-18 06:21:46'
-            unvnum: '1'
-            dateModified: '2018-11-18 07:11:16'
-            aeser: ''
-            aeterm: Bronchitis
+          - studyKey: PHARMADEMO
+            intervalId: 99
+            formId: 10202
+            formKey: AE
+            siteId: 128
+            recordId: 1
+            recordOid: REC-1
+            recordType: SUBJECT
+            recordStatus: Record Incomplete
+            deleted: false
+            dateCreated: '2025-06-05 21:12:09'
+            dateModified: '2025-06-05 21:12:10'
+            subjectId: 326
+            subjectOid: OID-1
+            subjectKey: 123-456
+            visitId: 1
+            parentRecordId: 34
+            keywords:
+              - keywordName: Data Entry Error
+                keywordKey: DEE
+                keywordId: 15362
+                dateAdded: '2025-06-05 21:12:09'
+            recordData:
+              dateCreated: '2018-10-18 06:21:46'
+              unvnum: '1'
+              dateModified: '2018-11-18 07:11:16'
+              aeser: ''
+              aeterm: Bronchitis
     ExampleRegisterSubjectRequest:
-      summary: Example request body for registering a new subject (via Registration
+      summary:
+        Example request body for registering a new subject (via Registration
         form)
       value:
-      - formKey: REG
-        siteName: Minneapolis
-        data:
-          textField: Text value
+        - formKey: REG
+          siteName: Minneapolis
+          data:
+            textField: Text value
     ExampleUpdateScheduledRecordRequest:
       summary: Example request body for updating a scheduled record
       value:
-      - formKey: REG
-        subjectKey: 651-042
-        intervalName: Registration
-        data:
-          textField: Text value
+        - formKey: REG
+          subjectKey: 651-042
+          intervalName: Registration
+          data:
+            textField: Text value
     ExampleCreateNewRecordRequest:
       summary: Example request body for creating a new record (for existing subject)
       value:
-      - formKey: REG
-        subjectKey: 123-876
-        data:
-          textField: Text value
+        - formKey: REG
+          subjectKey: 123-876
+          data:
+            textField: Text value
     ExamplePostRecordResponse:
       summary: Example response for a successful record creation request (job created)
       value:
