@@ -9,14 +9,48 @@ info:
 
     '
   version: 1.0.14
+  contact:
+    name: Mednet
+    url: https://www.mednetsolutions.com/contact/
+    email: support@mednetsolutions.com
 servers:
 - url: https://edc.prod.imednetapi.com/api/v1/edc
   description: Production EDC API server
+tags:
+- name: Studies
+  description: Endpoints for managing studies.
+- name: Sites
+  description: Endpoints for managing sites within a study.
+- name: Forms
+  description: Endpoints for managing forms (eCRFs) in a study.
+- name: Intervals
+  description: Endpoints for managing intervals (visit definitions).
+- name: Visits
+  description: Endpoints for managing visits (subject visit instances).
+- name: Subjects
+  description: Endpoints for managing subjects in a study.
+- name: Users
+  description: Endpoints for managing users and their roles.
+- name: Variables
+  description: Endpoints for managing variables (fields) on forms.
+- name: Codings
+  description: Endpoints for managing coding activities.
+- name: Queries
+  description: Endpoints for managing data queries.
+- name: Record Revisions
+  description: Endpoints for retrieving record revisions (audit trail).
+- name: Records
+  description: Endpoints for managing subject records (eCRF data).
+- name: Jobs
+  description: Endpoints for checking the status of asynchronous jobs.
 paths:
   /studies:
     get:
       summary: List studies accessible by API key
+      description: Retrieve a paged and filtered list of all studies accessible by the provided API key.
       operationId: listStudies
+      tags:
+      - Studies
       security:
       - apiKeyAuth: []
         securityKeyAuth: []
@@ -58,7 +92,10 @@ paths:
   /studies/{studyKey}/sites:
     get:
       summary: List sites for a study
+      description: Retrieve a paged and filtered list of all clinical sites associated with a specific study.
       operationId: listSites
+      tags:
+      - Sites
       security:
       - apiKeyAuth: []
         securityKeyAuth: []
@@ -101,7 +138,10 @@ paths:
   /studies/{studyKey}/forms:
     get:
       summary: List forms in a study
+      description: Retrieve a paged and filtered list of all forms (eCRFs) defined for a specific study.
       operationId: listForms
+      tags:
+      - Forms
       security:
       - apiKeyAuth: []
         securityKeyAuth: []
@@ -144,7 +184,10 @@ paths:
   /studies/{studyKey}/intervals:
     get:
       summary: List intervals (visit definitions) in a study
+      description: Retrieve a paged and filtered list of all intervals (visit definitions) for a specific study.
       operationId: listIntervals
+      tags:
+      - Intervals
       security:
       - apiKeyAuth: []
         securityKeyAuth: []
@@ -187,7 +230,10 @@ paths:
   /studies/{studyKey}/visits:
     get:
       summary: List visits (subject visit instances) in a study
+      description: Retrieve a paged and filtered list of all subject visit instances for a specific study.
       operationId: listVisits
+      tags:
+      - Visits
       security:
       - apiKeyAuth: []
         securityKeyAuth: []
@@ -230,7 +276,10 @@ paths:
   /studies/{studyKey}/subjects:
     get:
       summary: List subjects in a study
+      description: Retrieve a paged and filtered list of all subjects enrolled in a specific study.
       operationId: listSubjects
+      tags:
+      - Subjects
       security:
       - apiKeyAuth: []
         securityKeyAuth: []
@@ -273,7 +322,10 @@ paths:
   /studies/{studyKey}/users:
     get:
       summary: List users and their roles in a study
+      description: Retrieve a paged and filtered list of all users and their assigned roles within a specific study.
       operationId: listUsers
+      tags:
+      - Users
       security:
       - apiKeyAuth: []
         securityKeyAuth: []
@@ -316,7 +368,10 @@ paths:
   /studies/{studyKey}/variables:
     get:
       summary: List variables (fields) in a study
+      description: Retrieve a paged and filtered list of all variables (eCRF fields) defined for a specific study.
       operationId: listVariables
+      tags:
+      - Variables
       security:
       - apiKeyAuth: []
         securityKeyAuth: []
@@ -359,7 +414,10 @@ paths:
   /studies/{studyKey}/codings:
     get:
       summary: List coding activities in a study
+      description: Retrieve a paged and filtered list of all coding activities for a specific study. Coding activities occur when data entered into iMednet is standardized to specific drug or medical terms.
       operationId: listCodings
+      tags:
+      - Codings
       security:
       - apiKeyAuth: []
         securityKeyAuth: []
@@ -402,7 +460,10 @@ paths:
   /studies/{studyKey}/queries:
     get:
       summary: List data queries in a study
+      description: Retrieve a paged and filtered list of all data queries for a specific study. A query is a conduct resource that encapsulates dialogue pertaining to specific eCRF responses or other matters relevant to the conduct of the study.
       operationId: listQueries
+      tags:
+      - Queries
       security:
       - apiKeyAuth: []
         securityKeyAuth: []
@@ -445,7 +506,10 @@ paths:
   /studies/{studyKey}/recordRevisions:
     get:
       summary: List record revisions (audit trail entries) in a study
+      description: Retrieve a paged and filtered list of all record revisions for a specific study. Each record revision represents a distinct state (revision) in the lifecycle of a record, providing a complete audit trail.
       operationId: listRecordRevisions
+      tags:
+      - Record Revisions
       security:
       - apiKeyAuth: []
         securityKeyAuth: []
@@ -488,7 +552,10 @@ paths:
   /studies/{studyKey}/records:
     get:
       summary: List records (eCRF instances) in a study
+      description: Retrieve a paged and filtered list of all record instances (eCRFs) for a specific study.
       operationId: listRecords
+      tags:
+      - Records
       security:
       - apiKeyAuth: []
         securityKeyAuth: []
@@ -531,7 +598,10 @@ paths:
           $ref: '#/components/responses/InternalServerError'
     post:
       summary: Add new record or update subject/record data
+      description: Submit a job to perform an asynchronous bulk insert or update of subject record data. Use the 'GET /jobs/{batchId}' endpoint to check the status of the submitted job.
       operationId: createRecords
+      tags:
+      - Records
       security:
       - apiKeyAuth: []
         securityKeyAuth: []
@@ -582,7 +652,10 @@ paths:
   /studies/{studyKey}/jobs/{batchId}:
     get:
       summary: Retrieve job status by batch ID
+      description: Retrieve the current status of an asynchronous job previously submitted via the POST /records endpoint.
       operationId: getJobStatus
+      tags:
+      - Jobs
       security:
       - apiKeyAuth: []
         securityKeyAuth: []
@@ -629,13 +702,26 @@ components:
           description: Timestamp when response was generated
         error:
           type: object
-          description: Error details if an error occurred
+          description: Error details if an error occurred.
           properties:
-            message:
+            code:
               type: string
-              description: Error message describing the issue
+              description: A specific error code identifying the issue.
+            description:
+              type: string
+              description: A human-readable description of the error.
+            field:
+              type: object
+              description: Details about the specific field that caused a validation
+                error.
+              properties:
+                attribute:
+                  type: string
+                  description: The name of the request attribute that caused the error.
+                value:
+                  type: string
+                  description: The invalid value that was provided for the attribute.
           additionalProperties: true
-          title: components_schemas_Metadata_error
       title: Metadata
     Pagination:
       type: object
@@ -672,50 +758,50 @@ components:
       properties:
         sponsorKey:
           type: string
-          description: Sponsor key that this study belongs to
+          description: Sponsor key that this study is belong to
         studyKey:
           type: string
           description: Unique study key
         studyId:
           type: integer
-          description: Mednet study ID (internal numeric identifier)
+          description: Mednet study ID
         studyName:
           type: string
-          description: Name of the study
+          description: Study name
         studyDescription:
           type: string
-          description: Description of the study
+          description: Study description detail
         studyType:
           type: string
-          description: Type of study (e.g., STUDY)
+          description: The type of study
         dateCreated:
           type: string
-          description: Date when the study record was created
+          description: Date when this record was created
         dateModified:
           type: string
-          description: Date when the study record was last modified
+          description: Last date modified of this record
       title: Study
     Site:
       type: object
       properties:
         studyKey:
           type: string
-          description: Unique study key
+          description: Unique study key for a given study
         siteId:
           type: integer
-          description: Unique site ID
+          description: Unique site Id
         siteName:
           type: string
-          description: Name of the site
+          description: Site name
         siteEnrollmentStatus:
           type: string
-          description: Enrollment status of the site
+          description: Status of site enrollment
         dateCreated:
           type: string
-          description: Date when this site was created
+          description: Date when this record was created
         dateModified:
           type: string
-          description: Date when this site was last modified
+          description: Last date modified of this record
       title: Site
     Form:
       type: object
@@ -728,44 +814,43 @@ components:
           description: Mednet Form ID
         formKey:
           type: string
-          description: User-defined form key
+          description: Form key
         formName:
           type: string
-          description: Name of the form (eCRF)
+          description: Name of the eCRF
         formType:
           type: string
-          description: Type of the form (e.g., Subject or Site)
+          description: 'eCRF Type. For example: Subject/Site'
         revision:
           type: integer
-          description: Number of modifications (revisions) of the form metadata
+          description: Number of modifications of the form metadata
         embeddedLog:
           type: boolean
-          description: Whether the form has an embedded log
+          description: Embedded Log checkbox value on the form attributes
         enforceOwnership:
           type: boolean
-          description: Whether the form enforces record ownership
+          description: Enforce Ownership checkbox value on the form attributes
         userAgreement:
           type: boolean
-          description: Whether the form requires a user agreement
+          description: User Agreement checkbox value on the form attributes
         subjectRecordReport:
           type: boolean
-          description: Whether the form is marked as a subject record report
+          description: Subject Record Report checkbox value on the form attributes
         unscheduledVisit:
           type: boolean
-          description: Whether the form is included in unscheduled visits
+          description: Include in Unscheduled Visits checkbox value on the form attributes
         otherForms:
           type: boolean
-          description: Whether the form is included in Other Forms category
+          description: Include in Other Forms checkbox value on the form attributes
         eproForm:
           type: boolean
-          description: Whether the form is an ePRO (electronic patient reported outcome)
-            form
+          description: Is ePRO checkbox value on the form attributes
         allowCopy:
           type: boolean
-          description: Whether the form allows copying of data
+          description: Allow Copy checkbox value on the form attributes
         disabled:
           type: boolean
-          description: Whether the form is soft-deleted (disabled)
+          description: Form is soft delete status
         dateCreated:
           type: string
           description: Date when this form was created
@@ -778,63 +863,57 @@ components:
       properties:
         studyKey:
           type: string
-          description: Unique study key
+          description: Unique study key for a given study
         intervalId:
           type: integer
-          description: Unique system identifier for the interval (visit definition)
+          description: Unique system identifier for Interval
         intervalName:
           type: string
-          description: Name of the interval (visit) as defined in the study
+          description: User defined interval/visit name
         intervalDescription:
           type: string
-          description: Description of the interval (visit)
+          description: User defined interval/visit description
         intervalSequence:
           type: integer
-          description: Sequence number of the interval in the schedule
+          description: User defined sequence of interval
         intervalGroupId:
           type: integer
-          description: Identifier for the interval group (if intervals are grouped)
+          description: User defined interval groupId
         intervalGroupName:
           type: string
-          description: Name of the interval group
+          description: User defined interval group name
         timeline:
           type: string
-          description: Type of interval visit window (e.g., None, Due Date, Start
-            - End Date, Actual Date)
+          description: 'Type of Interval Visit Window. Valid responses: None, Due Date, Start -
+            End Date, or Actual Date'
         definedUsingInterval:
           type: string
-          description: "Baseline interval used for calculating this interval\u2019\
-            s dates"
+          description: The baseline Interval where the calculate from date is collected
         windowCalculationForm:
           type: string
-          description: Baseline form (name) from which the calculation date is taken
+          description: The baseline Form where the calculate from date is collected
         windowCalculationDate:
           type: string
-          description: Baseline field (variable name) from which the calculation date
-            is taken
+          description: The baseline Field where the calculate from date is collected
         actualDateForm:
           type: string
-          description: Form used to capture the actual date for this interval
+          description: The actual date Form for a specific Interval
         actualDate:
           type: string
-          description: Field (variable name) used to capture the actual date for this
-            interval
+          description: The actual date Field for a specific Interval
         dueDateWillBeIn:
           type: integer
-          description: Number of days from the calculation date when the interval
-            is due
+          description: The number of days the actual date is due from the calculate from
+            date
         negativeSlack:
           type: integer
-          description: Number of days before the due date that are allowed (negative
-            window)
+          description: The number of negative days allowed from the due date
         positiveSlack:
           type: integer
-          description: Number of days after the due date that are allowed (positive
-            window)
+          description: The number of positive days allowed from the due date
         eproGracePeriod:
           type: integer
-          description: Number of days of grace period for ePRO completion after due
-            date
+          description: The number of positive days allowed for ePRO from the due date
         forms:
           type: array
           description: List of forms that are scheduled in this interval
@@ -843,17 +922,16 @@ components:
             properties:
               formId:
                 type: integer
-                description: Form ID scheduled in the interval
+                description: Form ID
               formKey:
                 type: string
-                description: Form key scheduled in the interval
+                description: Form Key
               formName:
                 type: string
-                description: Form name scheduled in the interval
-            title: components_schemas_Interval_forms_item
+                description: Form name
         disabled:
           type: boolean
-          description: Whether the interval is soft-deleted (disabled)
+          description: Interval form is soft delete status
         dateCreated:
           type: string
           description: Date when this interval was created
@@ -866,91 +944,90 @@ components:
       properties:
         studyKey:
           type: string
-          description: Unique study key
+          description: Unique study key for a given study
         visitId:
           type: integer
           description: Unique system identifier for the subject visit instance
         intervalId:
           type: integer
-          description: Unique system identifier of the interval definition for this
-            visit
+          description: Unique system indentifier for the related interval
         intervalName:
           type: string
-          description: Name of the interval (visit) for this visit instance
+          description: User defined identifier for the related interval
         subjectId:
           type: integer
-          description: Mednet subject ID of the subject
+          description: Mednet Subject ID
         subjectKey:
           type: string
           description: Protocol-assigned subject identifier
         startDate:
           type: string
-          description: Start date of the visit window (in YYYY-MM-DD format)
+          description: Subject visit Start Date defined in interval visit window
         endDate:
           type: string
-          description: End date of the visit window (in YYYY-MM-DD format)
+          description: Subject visit End Date defined in interval visit window
         dueDate:
           type: string
           nullable: true
-          description: Due date of the visit (in YYYY-MM-DD format), if applicable
+          description: Subject visit Due Date defined in interval visit window
         visitDate:
           type: string
-          description: Actual date the visit took place (in YYYY-MM-DD format)
+          description: Subject visit Actual Date defined in interval visit window
         visitDateForm:
           type: string
-          description: Name of the form used to capture the actual visit date
+          description: Actual Date Form defined in interval visit window
         visitDateQuestion:
           type: string
-          description: Variable name of the field capturing the actual visit date
+          description: User defined field identifier
         deleted:
           type: boolean
-          description: Whether the visit instance is marked as deleted
+          description: Subject visit deleted flag
         dateCreated:
           type: string
-          description: Date when this visit record was created
+          description: Date when this visit was created
         dateModified:
           type: string
-          description: Date when this visit record was last modified
+          description: Date when this visit was last modified
       title: Visit
     Subject:
       type: object
       properties:
         studyKey:
           type: string
-          description: Unique study key
+          description: Unique study key for a given study
         subjectId:
           type: integer
-          description: Mednet subject ID (internal numeric ID)
+          description: Mednet Subject ID
         subjectOid:
           type: string
-          description: Client-assigned subject object identifier (OID)
+          description: Client-assigned subject OID
         subjectKey:
           type: string
-          description: Protocol-assigned subject identifier (display ID)
+          description: Protocol-assigned subject identifier
         subjectStatus:
           type: string
-          description: Current status of the subject (e.g., Enrolled)
+          description: Subject status
         siteId:
           type: integer
-          description: Mednet site ID the subject is associated with
+          description: Mednet Site ID
         siteName:
           type: string
-          description: Name of the site the subject is associated with
+          description: Site name
         deleted:
           type: boolean
-          description: Whether the subject is marked as deleted
+          description: Subject deleted flag
         enrollmentStartDate:
           type: string
-          description: "Subject\u2019s enrollment start date"
+          description: Enrollment start date
         dateCreated:
           type: string
-          description: Date when this subject record was created
+          description: Date when this subject was created
         dateModified:
           type: string
-          description: Date when this subject record was last modified
+          description: Last date modified of this subject
         keywords:
           type: array
-          description: List of keywords associated with the subject
+          description: All keywords associated with the subject
           items:
             $ref: '#/components/schemas/Keyword'
       title: Subject
@@ -975,22 +1052,22 @@ components:
       properties:
         userId:
           type: string
-          description: Unique user ID (UUID)
+          description: User ID
         login:
           type: string
-          description: User login name
+          description: Login
         firstName:
           type: string
-          description: User first name
+          description: First name
         lastName:
           type: string
-          description: User last name
+          description: Last name
         email:
           type: string
-          description: User email address
+          description: Email
         userActiveInStudy:
           type: boolean
-          description: Whether the user is active in the given study
+          description: Boolean value for if the user is active in the study
         roles:
           type: array
           description: Roles that the user has in the study
@@ -1004,185 +1081,182 @@ components:
           type: array
           items:
             type: integer
-          description: Timestamp when the role assignment was created (as [year, month,
-            day, hour, minute, second, nanosecond])
+          description: Role date created
         dateModified:
           type: array
           items:
             type: integer
-          description: Timestamp when the role assignment was last modified
+          description: Role date modified
         roleId:
           type: string
-          description: Unique role ID (UUID)
+          description: Role ID
         communityId:
           type: integer
-          description: Community ID or level associated with the role
+          description: Community ID associated with Role
         name:
           type: string
-          description: Name of the role
+          description: Role name
         description:
           type: string
-          description: Description of the role
+          description: Role description
         level:
           type: integer
-          description: Role level or hierarchy
+          description: Role level
         type:
           type: string
-          description: Role type/category
+          description: Role type
         inactive:
           type: boolean
-          description: Whether the role is inactive
+          description: Inactive
       title: Role
     Variable:
       type: object
       properties:
         studyKey:
           type: string
-          description: Unique study key
+          description: Unique study key for a given study
         variableId:
           type: integer
-          description: Mednet variable ID
+          description: Mednet Variable ID
         variableType:
           type: string
-          description: Type of the variable (field type), e.g., RADIO, TEXT, etc.
+          description: Variable Type
         variableName:
           type: string
-          description: Name of the variable (question text or label)
+          description: Name of the variable on the eCRF
         sequence:
           type: integer
-          description: Sequence of the variable on the form
+          description: User defined sequence of variable
         revision:
           type: integer
-          description: Number of modifications of the variable (via form metadata
-            revisions)
+          description: Number of modifications of the form metadata
         disabled:
           type: boolean
-          description: Whether the variable is marked as disabled (deleted)
+          description: Variable disabled flag
         dateCreated:
           type: string
-          description: Date when this variable was created
+          description: Date when this form was created
         dateModified:
           type: string
-          description: Date when this variable was last modified
+          description: Date when this form was last modified
         formId:
           type: integer
-          description: ID of the form that this variable belongs to
+          description: Mednet Form ID
         variableOid:
           type: string
           description: Client-assigned variable OID
         deleted:
           type: boolean
-          description: Whether the variable is marked as deleted
+          description: Variable deleted flag
         formKey:
           type: string
-          description: Form key of the form that this variable belongs to
+          description: Form key
         formName:
           type: string
-          description: Name of the form that this variable belongs to
+          description: Name of the eCRF
         label:
           type: string
-          description: User-defined identifier (field name) for the variable
+          description: User defined field identifier
         blinded:
           type: boolean
-          description: Whether the variable is flagged as blinded (hidden in certain
-            contexts)
+          description: Blinded flag
       title: Variable
     Coding:
       type: object
       properties:
         studyKey:
           type: string
-          description: Unique study key
+          description: Unique study key for a given study
         siteName:
           type: string
-          description: Name of the site associated with the coded data
+          description: Site name
         siteId:
           type: integer
-          description: Site ID associated with the coded data
+          description: Unique site id
         subjectId:
           type: integer
-          description: Subject ID associated with the coded data
+          description: Mednet Subject ID
         subjectKey:
           type: string
-          description: Subject key (display ID) associated with the coded data
+          description: Protocol-assigned subject identifier
         formId:
           type: integer
-          description: Form ID where the coded data originates
+          description: Mednet Form ID
         formName:
           type: string
-          description: Name of the form where the coded data originates
+          description: Name of the eCRF
         formKey:
           type: string
-          description: Form key where the coded data originates
+          description: Form key
         revision:
           type: integer
-          description: Revision number of the coding entry
+          description: Number of modifications of the coding metadata
         recordId:
           type: integer
-          description: Record ID associated with the coded data
+          description: Unique system identifier for record
         variable:
           type: string
-          description: Variable name (field) that was coded
+          description: Name of the variable on the eCRF
         value:
           type: string
-          description: Original value entered that required coding
+          description: Value
         codingId:
           type: integer
-          description: Mednet coding ID
+          description: Mednet Coding ID
         code:
           type: string
-          description: Standardized code assigned (e.g., dictionary term)
+          description: Code
         codedBy:
           type: string
-          description: Name of the user who performed the coding
+          description: User who recorded the code
         reason:
           type: string
-          description: Reason for coding or any notes on changes
+          description: Reason
         dictionaryName:
           type: string
-          description: Name of the dictionary used (e.g., MedDRA)
+          description: Dictionary name
         dictionaryVersion:
           type: string
-          description: Version of the dictionary used
+          description: Dictionary version
         dateCoded:
           type: string
-          description: Date when the coding was performed
+          description: Date that code was added
       title: Coding
     Query:
       type: object
       properties:
         studyKey:
           type: string
-          description: Unique study key
+          description: Unique study key for a given study
         subjectId:
           type: integer
-          description: Mednet subject ID associated with the query (if applicable)
+          description: Mednet Subject ID
         subjectOid:
           type: string
-          description: Client-assigned subject OID (if applicable)
+          description: Client-assigned subject OID
         annotationType:
           type: string
-          description: Category/type of the query (e.g., subject, record, question)
+          description: User defined identifier for Query Type
         annotationId:
           type: integer
-          description: Unique system identifier for the query
+          description: Unique system identifier for Query Instance
         type:
           type: string
           nullable: true
-          description: System text identifier for the query type/location (subject,
-            record, question)
+          description: System text identifier for query type/location. Valid responses
+            are subject|record|question
         description:
           type: string
-          description: Description of the query (e.g., reason or context)
+          description: Query description
         recordId:
           type: integer
-          description: Record ID associated with the query (if applicable)
+          description: Unique system identifier for Record
         variable:
           type: string
-          description: Variable name (field) associated with the query (if applicable)
+          description: User defined field identifier
         subjectKey:
           type: string
-          description: Subject display ID associated with the query (if applicable)
+          description: Protocol-assigned subject identifier
         dateCreated:
           type: string
           description: Date when the query was created
@@ -1200,66 +1274,65 @@ components:
       properties:
         sequence:
           type: integer
-          description: Sequence number of the comment/action in the query history
+          description: Query sequence
         annotationStatus:
           type: string
-          description: Status of the query after this comment (e.g., Open, Closed)
+          description: User defined Query status
         user:
           type: string
-          description: Username of the user who made the comment or action
+          description: User performing Query action
         comment:
           type: string
-          description: Text of the comment
+          description: User comments applied at time of Query action
         closed:
           type: boolean
-          description: Whether the query was marked closed at this step
+          description: Query moved to closed status
         date:
           type: string
-          description: Date of the comment or action
+          description: Date of Query Comment
       title: QueryComment
     RecordRevision:
       type: object
       properties:
         studyKey:
           type: string
-          description: Unique study key
+          description: Unique study key for a given study
         recordRevisionId:
           type: integer
           description: Unique system identifier for the record revision
         recordId:
           type: integer
-          description: Unique system identifier of the related record
+          description: Unique system identifier for the related record
         recordOid:
           type: string
-          description: Client-assigned record OID (if any)
+          description: Client-assigned record OID
         recordRevision:
           type: integer
-          description: Revision number of the record (version of the record status)
+          description: Record revision number
         dataRevision:
           type: integer
-          description: Revision number of the data within the record
+          description: Data revision number
         recordStatus:
           type: string
-          description: Status of the record at this revision (user-defined status
-            label)
+          description: User defined record status
         subjectId:
           type: integer
-          description: Mednet subject ID related to the record
+          description: Mednet Subject ID
         subjectOid:
           type: string
-          description: Client-assigned subject OID related to the record
+          description: Client-assigned subject OID
         subjectKey:
           type: string
-          description: Subject display ID related to the record
+          description: Protocol-assigned subject identifier
         siteId:
           type: integer
-          description: Site ID related to the record
+          description: Unique system identifier for the related site
         formKey:
           type: string
-          description: Form key of the form that the record belongs to
+          description: Form key
         intervalId:
           type: integer
-          description: Interval ID (visit definition) related to the record
+          description: Unique system identifier for Interval
         role:
           type: string
           description: Role name of the user who saved the record revision
@@ -1268,10 +1341,10 @@ components:
           description: Username of the user who saved the record revision
         reasonForChange:
           type: string
-          description: Reason for change, if provided (for audit trail)
+          description: Record revision’s Reason For Change data
         deleted:
           type: boolean
-          description: Whether the record was deleted in this revision
+          description: Record deleted flag
         dateCreated:
           type: string
           description: Date when this record revision was created
@@ -1423,23 +1496,22 @@ components:
       properties:
         jobId:
           type: string
-          description: Unique job identifier
+          description: Job ID
         batchId:
           type: string
-          description: Batch ID associated with the job (useful for linking with record
-            creation requests)
+          description: Batch ID
         state:
           type: string
-          description: State of the job (e.g., completed, pending)
+          description: State of the job
         dateCreated:
           type: string
-          description: Timestamp when the job was created
+          description: Timestamp when this job was created
         dateStarted:
           type: string
-          description: Timestamp when the job started processing
+          description: Timestamp when the job started running
         dateFinished:
           type: string
-          description: Timestamp when the job finished processing
+          description: Timestamp when the job was completed
       title: Job
   parameters:
     StudyKeyPath:
@@ -1480,17 +1552,15 @@ components:
     FilterParam:
       name: filter
       in: query
-      description: Optional filter criteria to apply, in the format `attribute==value`
-        with support for >, >=, <, <=, !=. Multiple criteria can be combined with
-        `;` (AND) or `,` (OR).
+      description: 'Optional filter criteria to apply. Supports operators (`<`, `<=`, `>`, `>=`, `==`, `!=`) and can combine multiple criteria with `;` (AND) or `,` (OR).'
       schema:
         type: string
     RecordDataFilterParam:
       name: recordDataFilter
       in: query
-      description: Optional filter criteria to apply on recordData fields (question
-        responses). Supports ==, !=, <, <=, >, >=, =~ (contains) and can combine multiple
-        criteria with `;` (AND) or `,` (OR).
+      description: 'Optional filter criteria to apply on recordData fields (question
+        responses). Supports operators (`<`, `<=`, `>`, `>=`, `==`, `!=`, `=~` for contains) and can combine multiple
+        criteria with `;` (AND) or `,` (OR).'
       schema:
         type: string
     IncludeInactiveParam:
@@ -1506,105 +1576,82 @@ components:
       description: Email address to send notification once job is complete (optional)
       schema:
         type: string
-  securitySchemes:
-    apiKeyAuth:
-      type: apiKey
-      name: x-api-key
-      in: header
-      description: API key provided by iMednet
-    securityKeyAuth:
-      type: apiKey
-      name: x-imn-security-key
-      in: header
-      description: Security key (secret) provided by iMednet
-  requestBodies: {}
   responses:
     BadRequest:
-      description: Bad request (malformed or invalid input)
+      description: 'Bad Request. The server cannot or will not process the request due to something that is perceived to be a client error (e.g., malformed request syntax, invalid request message framing, or deceptive request routing). This corresponds to error code `1000`.'
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              metadata:
-                $ref: '#/components/schemas/Metadata'
-            example:
-              metadata:
-                status: ERROR
-                error:
-                  message: The request was malformed or contains invalid parameters.
+            $ref: '#/components/schemas/Metadata'
+          example:
+            metadata:
+              status: BAD_REQUEST
+              path: "/api/v1/edc/studies"
+              timestamp: "2018-10-18 05:46:29"
+              error:
+                code: "1000"
+                description: "Field raised validation errors"
+                field:
+                  attribute: "page"
+                  value: "XX"
     Unauthorized:
-      description: Authentication failed or was not provided
+      description: 'Unauthorized. The client must authenticate itself to get the requested response. This corresponds to error code `9001`.'
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              metadata:
-                $ref: '#/components/schemas/Metadata'
-            example:
-              metadata:
-                status: ERROR
-                error:
-                  message: Authentication credentials missing, invalid, or expired.
+            $ref: '#/components/schemas/Metadata'
+          example:
+            metadata:
+              status: ERROR
+              error:
+                code: "9001"
+                description: "Unauthorized error. Insufficient permission to retrieve data."
     Forbidden:
       description: Authenticated but not allowed to access the resource
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              metadata:
-                $ref: '#/components/schemas/Metadata'
-            example:
-              metadata:
-                status: ERROR
-                error:
-                  message: Access is forbidden for the provided credentials.
+            $ref: '#/components/schemas/Metadata'
+          example:
+            metadata:
+              status: ERROR
+              error:
+                message: Access is forbidden for the provided credentials.
     NotFound:
       description: The requested resource was not found
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              metadata:
-                $ref: '#/components/schemas/Metadata'
-            example:
-              metadata:
-                status: ERROR
-                error:
-                  message: The requested resource could not be found.
+            $ref: '#/components/schemas/Metadata'
+          example:
+            metadata:
+              status: ERROR
+              error:
+                message: The requested resource could not be found.
     TooManyRequests:
       description: Too many requests (rate limit exceeded)
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              metadata:
-                $ref: '#/components/schemas/Metadata'
-            example:
-              metadata:
-                status: ERROR
-                error:
-                  message: Too many requests - rate limit exceeded, please try again
-                    later or contact support.
+            $ref: '#/components/schemas/Metadata'
+          example:
+            metadata:
+              status: ERROR
+              error:
+                message: Too many requests - rate limit exceeded, please try again
+                  later or contact support.
     InternalServerError:
-      description: Internal server error (unexpected condition encountered)
+      description: 'Internal server error (unexpected condition encountered). This corresponds to error code `9000`.'
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              metadata:
-                $ref: '#/components/schemas/Metadata'
-            example:
-              metadata:
-                status: ERROR
-                error:
-                  message: An unexpected server error occurred. Please contact support.
-  headers: {}
+            $ref: '#/components/schemas/Metadata'
+          example:
+            metadata:
+              status: ERROR
+              error:
+                code: "9000"
+                description: "Unknown error. Please contact Mednet support for assistance."
   examples:
     ExampleStudiesList:
       summary: Example response for listing studies
@@ -2100,6 +2147,17 @@ components:
         dateCreated: '2020-12-01 21:47:36'
         dateStarted: '2020-12-01 21:47:42'
         dateFinished: '2020-12-01 21:47:45'
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      name: x-api-key
+      in: header
+      description: API key provided by iMednet
+    securityKeyAuth:
+      type: apiKey
+      name: x-imn-security-key
+      in: header
+      description: Security key (secret) provided by iMednet
   links:
     CheckJobStatus:
       operationId: getJobStatus
@@ -2108,3 +2166,5 @@ components:
         batchId: $response.body#/batchId
       description: Link to check the status of the job created by the record POST
   callbacks: {}
+  requestBodies: {}
+  headers: {}
