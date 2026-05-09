@@ -19,6 +19,6 @@
   },
   "homepage": "https://github.com/fderuiter/imednet-openapi-spec#readme",
   "devDependencies": {
-    "@stoplight/spectral-cli": "^6.15.0"
+    "@stoplight/spectral-cli": "^6.15.1"
   }
 }
